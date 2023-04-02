@@ -1,0 +1,107 @@
+// customize slick slider css
+
+.slick-prev {
+    border: 2px solid #d7d7d7 !important;
+    background: #fff !important;
+    // position: relative !important;
+    left: -15px !important;
+    z-index: 1000;
+    height: 48px !important;
+    width: 44px !important;
+
+    &:hover {
+        background: #eceaea !important;
+    }
+}
+
+.slick-next {
+    border: 2px solid #d7d7d7 !important;
+    background: #fff !important;
+    right: -3px !important;
+    z-index: 1000;
+    height: 48px !important;
+    width: 44px !important;
+
+    &:hover {
+        background: #eceaea !important;
+    }
+}
+
+.slick-prev::before,
+.slick-next:before {
+    font-family: FontAwesome !important;
+    color: red !important;
+    // content: "\e258" !important;
+}
+
+// section css
+
+.section {
+    height: 330px;
+
+    .section-container {
+        margin: 0 190px;
+        display: flex;
+        flex-direction: column;
+
+        .section-header {
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 25px 0;
+
+            span {
+                font-size: 24px;
+                font-weight: 600;
+            }
+
+            button {
+                padding: 10px 15px;
+                font-size: 11px;
+                color: #282e41;
+                border: none;
+                outline: none;
+                background-color: #ebebeb;
+                margin-right: 12px;
+            }
+
+            button:hover {
+                background-color: #f7d800;
+                color: #fff;
+            }
+        }
+
+        .section-body {
+
+            .section-customize {
+                cursor: pointer;
+
+                .bg-image {
+                    background-position: center center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-color: #eee;
+                    height: 156.38px;
+                    width: 278px;
+                }
+
+                .section-text {
+                    font-size: 13px;
+                    color: #111;
+                    padding: 5px 0;
+                }
+            }
+
+            .section-customize:hover {
+                .section-text {
+                    color: #49BCE2;
+                }
+
+                .bg-image {
+                    opacity: 0.9;
+                }
+            }
+        }
+    }
+}
