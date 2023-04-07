@@ -9,6 +9,7 @@ import Handbook from './Section/Handbook';
 import Media from './Section/Media';
 import Application from './Section/Application';
 import DoctorMedical from './Section/DoctorMedical';
+import HomeFooter from './HomeFooter';
 import './HomePage.scss';
 
 class HomePage extends Component {
@@ -33,7 +34,7 @@ class HomePage extends Component {
                 <Media />
                 <Application />
                 <DoctorMedical settings={settings} />
-                <div style={{ height: '300px' }}></div>
+                <HomeFooter />
             </div>
         );
     }
