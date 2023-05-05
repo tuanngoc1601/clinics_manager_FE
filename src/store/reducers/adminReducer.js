@@ -1,33 +1,59 @@
 import actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    isLoggedIn: false,
-    adminInfo: null
+    isLoadingGenders: false,
+    genders: [],
+    roles: [],
+    positions: []
 }
 
-const appReducer = (state = initialState, action) => {
+const adminReducer = (state = initialState, action) => {
+    let copyState = {
+        ...state
+    }
     switch (action.type) {
-        case actionTypes.ADMIN_LOGIN_SUCCESS:
+        case actionTypes.FETCH_GENDER_START:
+            copyState.isLoadingGenders = true;
             return {
-                ...state,
-                isLoggedIn: true,
-                adminInfo: action.adminInfo
+                ...copyState
             }
-        case actionTypes.ADMIN_LOGIN_FAIL:
+        case actionTypes.FETCH_GENDER_SUCCESS:
+            copyState.genders = action.data;
+            copyState.isLoadingGenders = false;
             return {
-                ...state,
-                isLoggedIn: false,
-                adminInfo: null
+                ...copyState
             }
-        case actionTypes.PROCESS_LOGOUT:
+        case actionTypes.FETCH_GENDER_FAILED:
+            copyState.isLoadingGenders = false;
+            copyState.genders = [];
             return {
-                ...state,
-                isLoggedIn: false,
-                adminInfo: null
+                ...copyState
+            }
+
+        case actionTypes.FETCH_POSITION_SUCCESS:
+            copyState.positions = action.data;
+            return {
+                ...copyState
+            }
+        case actionTypes.FETCH_POSITION_FAILED:
+            copyState.positions = [];
+            return {
+                ...copyState
+            }
+
+        case actionTypes.FETCH_ROLE_SUCCESS:
+            copyState.roles = action.data;
+            return {
+                ...copyState
+            }
+        case actionTypes.FETCH_ROLE_FAILED:
+            copyState.roles = [];
+            return {
+                ...copyState
             }
         default:
             return state;
     }
 }
 
-export default appReducer;
+export default adminReducer;
