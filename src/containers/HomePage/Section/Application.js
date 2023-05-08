@@ -24,15 +24,15 @@ class Application extends Component {
                                 <h2>Tải ứng dụng BookingCare</h2>
                                 <ul>
                                     <li>
-                                        <i class="fas fa-check"></i>
+                                        <i className="fas fa-check"></i>
                                         Đặt khám nhanh hơn
                                     </li>
                                     <li>
-                                        <i class="fas fa-check"></i>
+                                        <i className="fas fa-check"></i>
                                         Nhận thông báo từ hệ thống
                                     </li>
                                     <li>
-                                        <i class="fas fa-check"></i>
+                                        <i className="fas fa-check"></i>
                                         Nhận hướng dẫn thông báo chi tiết
                                     </li>
                                 </ul>
