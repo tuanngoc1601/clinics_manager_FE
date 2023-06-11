@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import { LANGUAGES, CRUD_ACTIONS } from '../../../utils';
+import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from '../../../utils';
 import * as actions from '../../../store/actions';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css'; // This only needs to be imported once in your app
@@ -99,19 +99,21 @@ class UserRedux extends Component {
                 position: arrPositions && arrPositions.length > 0 ? arrPositions[0].key : '',
                 role: arrRoles && arrRoles.length > 0 ? arrRoles[0].key : '',
                 avatar: '',
-                action: CRUD_ACTIONS.CREATE
+                action: CRUD_ACTIONS.CREATE,
+                previewImgUrl: ''
             })
         }
     }
 
-    handleOnChangeImage = (event) => {
+    handleOnChangeImage = async (event) => {
         let data = event.target.files;
         let file = data[0];
         if (file) {
+            let base64 = await CommonUtils.getBase64(file);
             let objectUrl = URL.createObjectURL(file);
             this.setState({
                 previewImgUrl: objectUrl,
-                avatar: file
+                avatar: base64
             })
         }
     }
@@ -124,6 +126,11 @@ class UserRedux extends Component {
     }
 
     handleEditUserFromParent = (user) => {
+        let imageBase64 = '';
+        if (user.image) {
+            imageBase64 = new Buffer(user.image, 'base64').toString('binary');
+        }
+
         this.setState({
             email: user.email,
             password: 'hardcode',
@@ -134,7 +141,8 @@ class UserRedux extends Component {
             gender: user.gender,
             position: user.positionId,
             role: user.roleId,
-            avatar: user.avatar,
+            avatar: '',
+            previewImgUrl: imageBase64,
             action: CRUD_ACTIONS.EDIT,
             userEditId: user.id
         })
@@ -155,10 +163,11 @@ class UserRedux extends Component {
                 phonenumber: this.state.phonenumber,
                 gender: this.state.gender,
                 role: this.state.role,
-                position: this.state.position
+                position: this.state.position,
+                avatar: this.state.avatar
             })
         }
-        if(action === CRUD_ACTIONS.EDIT) {
+        if (action === CRUD_ACTIONS.EDIT) {
             // fire redux update user
             this.props.editUserRedux({
                 id: this.state.userEditId,
@@ -171,7 +180,7 @@ class UserRedux extends Component {
                 gender: this.state.gender,
                 roleId: this.state.role,
                 positionId: this.state.position,
-                // avatar: this.state.avatar
+                avatar: this.state.avatar
             })
         }
 
@@ -335,7 +344,8 @@ class UserRedux extends Component {
                                             style={{
                                                 width: '100px',
                                                 backgroundImage: `url(${this.state.previewImgUrl})`,
-                                                background: 'center center no-repeat',
+                                                backgroundPosition: 'center center',
+                                                backgroundRepeat: 'no-repeat',
                                                 backgroundSize: 'contain'
                                             }}
                                             onClick={() => this.openPreviewImage()}
